@@ -5,7 +5,7 @@
 #include "tests_4/Arcs.h"
 #include "DataStructures/Dijkstra.h"
 #include "DataStructures/Kruskal.h"
-#include "sorting_algorithms/QuickSort.h"
+#include "DataStructures/QuickSort.h"
 
 void ConsoleLoop() {
     UndirectedGraph<int, int> G;

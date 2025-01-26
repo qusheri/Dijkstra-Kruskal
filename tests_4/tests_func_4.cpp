@@ -4,9 +4,9 @@
 #include "../DataStructures/Dijkstra.h"
 #include "../DataStructures/Kruskal.h"
 #include "Arcs.h"
-#include "../sorting_algorithms/BubbleSort.h"
-#include "../sorting_algorithms/QuickSort.h"
-#include "../sorting_algorithms/MergeSort.h"
+#include "../DataStructures/BubbleSort.h"
+#include "../DataStructures/QuickSort.h"
+#include "../DataStructures/MergeSort.h"
 
 #include <cassert>
 #include <iostream>

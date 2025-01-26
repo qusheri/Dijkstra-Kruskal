@@ -6,8 +6,8 @@
 #include "../DataStructures/DynamicArray.h"
 #include "../DataStructures/Dijkstra.h"
 #include "../DataStructures/Kruskal.h"
-#include "../sorting_algorithms/BubbleSort.h"
-#include "../sorting_algorithms/QuickSort.h"
+#include "../DataStructures/BubbleSort.h"
+#include "../DataStructures/QuickSort.h"
 #include "Arcs.h"
 
 UndirectedGraph<int, int>* GenerateRandomGraph(int n, int m, int maxWeight=10) {

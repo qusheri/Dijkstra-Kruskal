@@ -1,7 +1,7 @@
 #pragma once
 #include "DynamicArray.h"
 #include "UndirectedGraph.h"
-#include "../sorting_algorithms/QuickSort.h"
+#include "../DataStructures/QuickSort.h"
 #include "HashTable.h"
 
 template<typename Vertex, typename Weight>
