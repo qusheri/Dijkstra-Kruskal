@@ -7,6 +7,8 @@
 #include "DataStructures/Kruskal.h"
 #include "DataStructures/QuickSort.h"
 
+#include <climits>
+
 void ConsoleLoop() {
     UndirectedGraph<int, int> G;
 
