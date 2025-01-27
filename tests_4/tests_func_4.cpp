@@ -6,7 +6,6 @@
 #include "Arcs.h"
 #include "../DataStructures/BubbleSort.h"
 #include "../DataStructures/QuickSort.h"
-#include "../DataStructures/MergeSort.h"
 
 #include <cassert>
 #include <iostream>

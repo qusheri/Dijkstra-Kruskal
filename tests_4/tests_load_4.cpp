@@ -2,6 +2,8 @@
 #include <fstream>
 #include <iostream>
 
+#include "tests_load_4.h"
+
 #include "../DataStructures/UndirectedGraph.h"
 #include "../DataStructures/DynamicArray.h"
 #include "../DataStructures/Dijkstra.h"
@@ -10,7 +12,7 @@
 #include "../DataStructures/QuickSort.h"
 #include "Arcs.h"
 
-UndirectedGraph<int, int>* GenerateRandomGraph(int n, int m, int maxWeight=10) {
+UndirectedGraph<int, int>* GenerateRandomGraph(int n, int m, int maxWeight) {
     auto* g = new UndirectedGraph<int, int>();
     for(int i=0; i<n; i++){
         g->AddVertex(i);
