@@ -1,6 +1,7 @@
 #include <chrono>
 #include <fstream>
 #include <iostream>
+#include <climits>
 
 #include "tests_load_4.h"
 

@@ -9,6 +9,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <climits>
 
 
 void TestGraphMethods() {
