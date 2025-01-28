@@ -79,7 +79,6 @@ void ConsoleLoop() {
                 auto mst = KruskalMST(G, G.GetVertexCount(), &sorter);
                 std::cout<<"MST edges:\n";
                 auto it = mst.GetIterator();
-                it->Reset();
                 while(!it->atEnd()){
                     auto e = **it;
                     std::cout<< e.from <<"--"<< e.to<<" weight="<<e.data->GetCost()<<"\n";
