@@ -73,10 +73,16 @@ void ConsoleLoop() {
                     std::cout<<"Distances:\n";
                     auto vertices = G.GetAllVertices();
                     for(int i=0; i < G.GetVertexCount(); i++){
-                        std::cout<<"dist["<<vertices[i]<<"]="<<dist->Get(vertices[i])<<"\n";
+                        if(dist->Get(vertices[i]) == INT_MAX - 1) {
+                            std::cout<<"dist["<<vertices[i]<<"]="<<"inf"<<"\n";
+                        }
+                        else {
+                            std::cout<<"dist["<<vertices[i]<<"]="<<dist->Get(vertices[i])<<"\n";
+                        }
                     }
                 } catch(const std::exception& e) {
                     std::cerr << "Error: " << e.what() << std::endl;
+                    std::cerr.flush();
                 }
             } break;
             case 5: {
@@ -84,7 +90,6 @@ void ConsoleLoop() {
                 QuickSort<Arc<int, int>> sorter;
                 auto mst = KruskalMST(G, G.GetVertexCount(), &sorter);
                 std::cout<<"MST edges:\n";
-                auto vertices = G.GetAllVertices();
                 auto it = mst.GetIterator();
                 while(!it->atEnd()){
                     auto e = **it;
