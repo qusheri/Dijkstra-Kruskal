@@ -13,10 +13,6 @@ private:
     HashTable<Vertex, ArcListType> adjacency;
     int edgeCount;
 
-    bool cmp(const Vertex& a, const Vertex& b) const {
-        return a < b;
-    }
-
 public:
     explicit UndirectedGraph(size_t cap = 16)
         : adjacency(cap),
@@ -74,47 +70,38 @@ public:
         if(!HasVertex(v)) {
             AddVertex(v);
         }
-        if(cmp(u,v)) {
-            Arc<Vertex, Weight> arc(u,v,data);
-            adjacency.Get(u).Append(arc);
-        } else {
-            Arc<Vertex, Weight> arc(v,u,data);
-            adjacency.Get(v).Append(arc);
-        }
+        Arc<Vertex, Weight> arc1(u,v,data);
+        adjacency.Get(u).Append(arc1);
+        Arc<Vertex, Weight> arc2(v,u,data);
+        adjacency.Get(v).Append(arc2);
+
         ++edgeCount;
     }
     void RemoveEdge(const Vertex& u, const Vertex& v) override {
         if(!HasVertex(u) || !HasVertex(v)) return;
-        if (cmp(u, v)) {
-            auto& list = adjacency.Get(u);
-            auto it = list.GetIterator();
-            int idx=0;
-            while(!it->atEnd()){
-                auto e = **it;
-                if(e.to == v){
-                    list.RemoveAt(idx);
-                    break;
-                }
-                ++(*it);
-                idx++;
+        auto& list = adjacency.Get(u);
+        auto it = list.GetIterator();
+        int idx=0;
+        while(!it->atEnd()){
+            auto e = **it;
+            if(e.to == v && e.from == u || e.to == u && e.from == v) {
+                list.RemoveAt(idx);
             }
-            edgeCount--;
+            ++(*it);
+            idx++;
         }
-        else {
-            auto& list = adjacency.Get(v);
-            auto it = list.GetIterator();
-            int idx=0;
-            while(!it->atEnd()){
-                auto e = **it;
-                if(e.to == u){
-                    list.RemoveAt(idx);
-                    break;
-                }
-                ++(*it);
-                idx++;
+        auto& list1 = adjacency.Get(v);
+        auto it1 = list1.GetIterator();
+        int idy=0;
+        while(!it1->atEnd()){
+            auto e = **it1;
+            if(e.to == v && e.from == u || e.to == u && e.from == v) {
+                list1.RemoveAt(idy);
             }
-            edgeCount--;
+            ++(*it1);
+            idy++;
         }
+        edgeCount--;
     }
 
     bool HasVertex(const Vertex& vid) const override {
@@ -123,30 +110,16 @@ public:
 
     bool HasEdge(const Vertex& u, const Vertex& v) const override {
         if (!HasVertex(u) || !HasVertex(v)) return false;
-        if(cmp(v, u)) {
-            auto& list = adjacency.Get(v);
-            auto it = list.GetIterator();
-            while(!it->atEnd()){
-                auto e = **it;
-                if(e.to == u) {
-                    return true;
-                }
-                ++(*it);
+        auto& list = adjacency.Get(v);
+        auto it = list.GetIterator();
+        while(!it->atEnd()){
+            auto e = **it;
+            if(e.to == u) {
+                return true;
             }
-            return false;
+            ++(*it);
         }
-        else {
-            auto& list = adjacency.Get(u);
-            auto it = list.GetIterator();
-            while(!it->atEnd()){
-                auto e = **it;
-                if(e.to == v) {
-                    return true;
-                }
-                ++(*it);
-            }
-            return false;
-        }
+        return false;
     }
 
     int GetVertexCount() const override {
@@ -178,23 +151,6 @@ public:
             result.Append(**itx);
             ++(*itx);
         }
-
-        auto tIt = adjacency.GetIterator();
-        while(!tIt->atEnd()){
-            Vertex z = tIt->GetCurrentKey();
-            if(cmp(z,x)){
-                auto& listZ = adjacency.Get(z);
-                auto iz = listZ.GetIterator();
-                while(!iz->atEnd()){
-                    auto& arc = **iz;
-                    if(arc.to==x){
-                        result.Append(arc);
-                    }
-                    ++(*iz);
-                }
-            }
-            ++(*tIt);
-        }
         return result;
     }
 
@@ -207,9 +163,7 @@ public:
             auto itList = listU.GetIterator();
             while(!itList->atEnd()) {
                 auto e = **itList;
-                if(cmp(u, e.to)) {
-                    edges.Append(e);
-                }
+                edges.Append(e);
                 ++(*itList);
             }
             ++(*tableIter);

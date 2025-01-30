@@ -71,8 +71,9 @@ void ConsoleLoop() {
                 try {
                     auto dist = Dijkstra(G, s, INT_MAX - 1);
                     std::cout<<"Distances:\n";
-                    for(int i=0; i< G.GetVertexCount(); i++){
-                        std::cout<<"dist["<<i<<"]="<<dist->Get(i)<<"\n";
+                    auto vertices = G.GetAllVertices();
+                    for(int i=0; i < G.GetVertexCount(); i++){
+                        std::cout<<"dist["<<vertices[i]<<"]="<<dist->Get(vertices[i])<<"\n";
                     }
                 } catch(const std::exception& e) {
                     std::cerr << "Error: " << e.what() << std::endl;
@@ -83,6 +84,7 @@ void ConsoleLoop() {
                 QuickSort<Arc<int, int>> sorter;
                 auto mst = KruskalMST(G, G.GetVertexCount(), &sorter);
                 std::cout<<"MST edges:\n";
+                auto vertices = G.GetAllVertices();
                 auto it = mst.GetIterator();
                 while(!it->atEnd()){
                     auto e = **it;
