@@ -8,6 +8,7 @@
 #include "DataStructures/QuickSort.h"
 
 #include <climits>
+#include <stdexcept>
 
 void ConsoleLoop() {
     UndirectedGraph<int, int> G;
@@ -67,10 +68,14 @@ void ConsoleLoop() {
                 // Dijkstra
                 std::cout<<"Enter start: ";
                 int s; std::cin>>s;
-                auto dist = Dijkstra(G, s, INT_MAX - 1);
-                std::cout<<"Distances:\n";
-                for(int i=0; i< G.GetVertexCount(); i++){
-                    std::cout<<"dist["<<i<<"]="<<dist->Get(i)<<"\n";
+                try {
+                    auto dist = Dijkstra(G, s, INT_MAX - 1);
+                    std::cout<<"Distances:\n";
+                    for(int i=0; i< G.GetVertexCount(); i++){
+                        std::cout<<"dist["<<i<<"]="<<dist->Get(i)<<"\n";
+                    }
+                } catch(const std::exception& e) {
+                    std::cerr << "Error: " << e.what() << std::endl;
                 }
             } break;
             case 5: {
